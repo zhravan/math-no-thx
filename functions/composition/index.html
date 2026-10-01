@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Composition | math-no-thx</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../../viz/viz.css">
+</head>
+<body>
+  <main class="page">
+    <a class="back" href="../">← functions</a>
+
+    <header class="concept-header">
+      <p class="eyebrow">01 / Algebra / Functions</p>
+      <h1>Function composition</h1>
+      <p class="lead">Put one function inside another. Watch the output flow through both.</p>
+    </header>
+
+    <section class="concept">
+      <div class="math-card">
+        <p class="label">The idea</p>
+        <p class="equation" id="equation">f(g(x))</p>
+        <p class="explanation">
+          The inside function runs first. Its output becomes the input of the outside function.
+        </p>
+      </div>
+
+      <div class="viz">
+        <canvas id="graph" class="viz-canvas"></canvas>
+
+        <div class="viz-controls">
+          <div class="viz-control">
+            <label for="a">f(x) = ax + b</label>
+            <input id="a" type="number" step="any" value="2">
+            <input id="b" type="number" step="any" value="1">
+          </div>
+
+          <div class="viz-control">
+            <label for="c">g(x) = cx + d</label>
+            <input id="c" type="number" step="any" value="3">
+            <input id="d" type="number" step="any" value="-1">
+          </div>
+        </div>
+      </div>
+
+      <div class="math-card">
+        <p class="label">Composition</p>
+        <p class="equation" id="result">f(g(x)) = 6x - 1</p>
+        <p class="explanation" id="steps">
+          g(x) = 3x - 1, then f(g(x)) = 2(3x - 1) + 1.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
