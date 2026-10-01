@@ -1,6 +1,7 @@
 import { canvas2d, slider, mapRange } from "../viz/viz.js";
 
 const canvas = document.querySelector("#graph");
+const cursor = document.querySelector("#cursor");
 const equation = document.querySelector("#equation");
 
 const controls = {
@@ -16,6 +17,7 @@ const values = {
 };
 
 let params = { a: 1, b: 0, c: 0 };
+let graphSize = { width: 0, height: 0 };
 
 function format(value) {
   return Number(value).toFixed(1).replace(".0", "");
@@ -33,7 +35,9 @@ function equationText() {
 }
 
 function draw(ctx, width, height) {
-  const padding = 32;
+  graphSize = { width, height };
+
+  const padding = 36;
   const xMin = -10;
   const xMax = 10;
   const yMin = -10;
@@ -44,23 +48,25 @@ function draw(ctx, width, height) {
 
   ctx.clearRect(0, 0, width, height);
 
-  ctx.strokeStyle = "#e7e5df";
+  ctx.strokeStyle = "#eee";
   ctx.lineWidth = 1;
 
   for (let i = -10; i <= 10; i++) {
-    ctx.beginPath();
-    ctx.moveTo(x(i), padding);
-    ctx.lineTo(x(i), height - padding);
-    ctx.stroke();
+    if (i !== 0) {
+      ctx.beginPath();
+      ctx.moveTo(x(i), padding);
+      ctx.lineTo(x(i), height - padding);
+      ctx.stroke();
 
-    ctx.beginPath();
-    ctx.moveTo(padding, y(i));
-    ctx.lineTo(width - padding, y(i));
-    ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(padding, y(i));
+      ctx.lineTo(width - padding, y(i));
+      ctx.stroke();
+    }
   }
 
   ctx.strokeStyle = "#171717";
-  ctx.lineWidth = 1.5;
+  ctx.lineWidth = 1;
 
   ctx.beginPath();
   ctx.moveTo(x(0), padding);
@@ -71,6 +77,16 @@ function draw(ctx, width, height) {
   ctx.moveTo(padding, y(0));
   ctx.lineTo(width - padding, y(0));
   ctx.stroke();
+
+  ctx.fillStyle = "#777";
+  ctx.font = "11px ui-monospace, SFMono-Regular, Menlo, monospace";
+
+  for (let i = -10; i <= 10; i += 2) {
+    if (i !== 0) {
+      ctx.fillText(String(i), x(i) - 4, y(0) + 18);
+      ctx.fillText(String(i), x(0) + 8, y(i) + 4);
+    }
+  }
 
   ctx.beginPath();
 
@@ -95,11 +111,27 @@ function draw(ctx, width, height) {
   }
 
   ctx.strokeStyle = "#171717";
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 2.5;
   ctx.stroke();
 }
 
 const graph = canvas2d(canvas, draw);
+
+canvas.addEventListener("pointermove", event => {
+  if (!graphSize.width) return;
+
+  const rect = canvas.getBoundingClientRect();
+  const px = event.clientX - rect.left;
+  const py = event.clientY - rect.top;
+
+  const padding = 36;
+  const x = mapRange(px, padding, graphSize.width - padding, -10, 10);
+  const y = params.a * x * x + params.b * x + params.c;
+
+  cursor.textContent = `x: ${format(x)}   y: ${format(y)}`;
+  cursor.style.left = `${px}px`;
+  cursor.style.top = `${py}px`;
+});
 
 function update() {
   for (const key of Object.keys(controls)) {
