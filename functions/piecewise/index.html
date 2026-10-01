@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Piecewise functions | math-no-thx</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../../viz/viz.css">
+</head>
+<body>
+  <main class="page">
+    <a class="back" href="../">← functions</a>
+
+    <header class="concept-header">
+      <p class="eyebrow">01 / Algebra / Functions</p>
+      <h1>Piecewise functions</h1>
+      <p class="lead">Give a function different rules for different parts of its domain.</p>
+    </header>
+
+    <section class="concept">
+      <div class="math-card">
+        <p class="label">The function</p>
+        <p class="equation" id="equation">f(x) = x, x &lt; 0 · x², x ≥ 0</p>
+        <p class="explanation">
+          The rule changes at the boundary <strong>x = k</strong>.
+          The graph shows which rule is active on each side.
+        </p>
+      </div>
+
+      <div class="viz">
+        <canvas id="graph" class="viz-canvas"></canvas>
+
+        <div class="viz-controls">
+          <div class="viz-control">
+            <label for="leftA">Left slope</label>
+            <input id="leftA" type="number" step="any" value="1">
+          </div>
+
+          <div class="viz-control">
+            <label for="leftB">Left offset</label>
+            <input id="leftB" type="number" step="any" value="0">
+          </div>
+
+          <div class="viz-control">
+            <label for="rightA">Right coefficient</label>
+            <input id="rightA" type="number" step="any" value="1">
+          </div>
+
+          <div class="viz-control">
+            <label for="rightB">Right offset</label>
+            <input id="rightB" type="number" step="any" value="0">
+          </div>
+
+          <div class="viz-control">
+            <label for="boundary">Boundary k</label>
+            <input id="boundary" type="number" step="any" value="0">
+          </div>
+        </div>
+      </div>
+
+      <section class="notes">
+        <div>
+          <p class="label">At the boundary</p>
+          <p id="boundaryText">Left and right rules meet at x = 0.</p>
+        </div>
+
+        <div>
+          <p class="label">Try this</p>
+          <p>Make the two sides meet.</p>
+          <p>Then create a jump at the boundary.</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
