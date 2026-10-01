@@ -1,0 +1,75 @@
+.viz {
+  --viz-bg: #f6f5f1;
+  --viz-panel: #ffffff;
+  --viz-text: #171717;
+  --viz-muted: #77736a;
+  --viz-line: #dedcd4;
+  --viz-accent: #171717;
+  color: var(--viz-text);
+}
+
+.viz-canvas {
+  display: block;
+  width: 100%;
+  height: 420px;
+  border: 1px solid var(--viz-line);
+  border-radius: 16px;
+  background: var(--viz-panel);
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 16px;
+}
+
+.viz-control {
+  display: grid;
+  gap: 6px;
+  min-width: 180px;
+}
+
+.viz-control label {
+  color: var(--viz-muted);
+  font-size: 12px;
+}
+
+.viz-control input[type="range"] {
+  width: 100%;
+}
+
+.viz-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.viz-button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--viz-line);
+  border-radius: 999px;
+  background: var(--viz-panel);
+  color: var(--viz-text);
+  cursor: pointer;
+}
+
+.viz-button:hover {
+  border-color: var(--viz-text);
+}
+
+.viz-button:focus-visible,
+.viz-control input:focus-visible {
+  outline: 2px solid var(--viz-text);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .viz-canvas {
+    height: 320px;
+  }
+
+  .viz-control {
+    width: 100%;
+  }
+}
