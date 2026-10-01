@@ -189,10 +189,21 @@ function updateFacts() {
     ? `(${format(points.vertex.x)}, ${format(points.vertex.y)})`
     : "none";
 
+  const discriminant = params.b * params.b - 4 * params.a * params.c;
+  const rootBehavior = params.a === 0
+    ? "linear"
+    : discriminant > 0
+      ? "2 real roots"
+      : discriminant === 0
+        ? "1 real root"
+        : "no real roots";
+
   facts.innerHTML = [
     `<span class="function-fact">roots: ${rootText}</span>`,
     `<span class="function-fact">vertex: ${vertexText}</span>`,
-    `<span class="function-fact">y-intercept: ${format(params.c)}</span>`
+    `<span class="function-fact">y-intercept: ${format(params.c)}</span>`,
+    `<span class="function-fact">Δ: ${format(discriminant)}</span>`,
+    `<span class="function-fact">${rootBehavior}</span>`
   ].join("");
 }
 
