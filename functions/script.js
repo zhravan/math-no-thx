@@ -10,12 +10,6 @@ const controls = {
   c: document.querySelector("#c")
 };
 
-const values = {
-  a: document.querySelector("#a-value"),
-  b: document.querySelector("#b-value"),
-  c: document.querySelector("#c-value")
-};
-
 let params = { a: 1, b: 0, c: 0 };
 let graphSize = { width: 0, height: 0 };
 
@@ -163,7 +157,6 @@ function update() {
   for (const key of Object.keys(controls)) {
     const value = Number(controls[key].value);
     params[key] = Number.isFinite(value) ? value : 0;
-    values[key].textContent = format(params[key]);
   }
 
   equation.textContent = equationText();
