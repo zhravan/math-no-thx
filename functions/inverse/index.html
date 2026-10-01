@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inverse functions | math-no-thx</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../../viz/viz.css">
+</head>
+<body>
+  <main class="page">
+    <a class="back" href="../">← functions</a>
+
+    <header class="concept-header">
+      <p class="eyebrow">01 / Algebra / Functions</p>
+      <h1>Inverse functions</h1>
+      <p class="lead">An inverse undoes a function. See the two graphs reflect across y = x.</p>
+    </header>
+
+    <section class="concept">
+      <div class="math-card">
+        <p class="label">The function</p>
+        <p class="equation" id="equation">f(x) = x</p>
+        <p class="explanation">
+          For a linear function <strong>f(x) = ax + b</strong>, the inverse is
+          <strong>f⁻¹(x) = (x - b) / a</strong>, when <strong>a ≠ 0</strong>.
+        </p>
+      </div>
+
+      <div class="viz">
+        <canvas id="graph" class="viz-canvas"></canvas>
+
+        <div class="viz-controls">
+          <div class="viz-control">
+            <label for="a">a</label>
+            <input id="a" type="number" step="any" value="2">
+          </div>
+
+          <div class="viz-control">
+            <label for="b">b</label>
+            <input id="b" type="number" step="any" value="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="math-card">
+        <p class="label">The inverse</p>
+        <p class="equation" id="inverse">f⁻¹(x) = (x - 1) / 2</p>
+        <p class="explanation" id="composition">
+          f(f⁻¹(x)) = x and f⁻¹(f(x)) = x
+        </p>
+      </div>
+
+      <section class="notes">
+        <div>
+          <p class="label">What to notice</p>
+          <p>The two graphs are reflections across <strong>y = x</strong>.</p>
+          <p>Input and output swap places.</p>
+        </div>
+
+        <div>
+          <p class="label">Try this</p>
+          <p>Change <strong>a</strong>. What happens to both lines?</p>
+          <p>Change <strong>b</strong>. Where does the inverse move?</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
