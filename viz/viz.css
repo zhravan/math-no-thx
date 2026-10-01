@@ -107,3 +107,16 @@
     width: 100%;
   }
 }
+
+.function-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 16px;
+  color: var(--viz-muted);
+  font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.function-fact {
+  white-space: nowrap;
+}
