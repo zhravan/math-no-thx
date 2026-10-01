@@ -3,6 +3,7 @@ import { canvas2d, mapRange } from "../viz/viz.js";
 const canvas = document.querySelector("#graph");
 const cursor = document.querySelector("#cursor");
 const equation = document.querySelector("#equation");
+const facts = document.querySelector("#facts");
 
 const controls = {
   a: document.querySelector("#a"),
@@ -119,6 +120,80 @@ function draw(ctx, width, height) {
   ctx.strokeStyle = "#171717";
   ctx.lineWidth = 2.5;
   ctx.stroke();
+
+  const points = quadraticPoints();
+  const point = (px, py, radius = 4) => {
+    if (px < xMin || px > xMax || py < yMin || py > yMax) return;
+    ctx.beginPath();
+    ctx.arc(x(px), y(py), radius, 0, Math.PI * 2);
+    ctx.fillStyle = "#171717";
+    ctx.fill();
+  };
+
+  if (points.vertex) point(points.vertex.x, points.vertex.y, 5);
+  if (points.yIntercept) point(points.yIntercept.x, points.yIntercept.y);
+
+  for (const root of points.roots) point(root, 0);
+
+  if (points.vertex) {
+    ctx.save();
+    ctx.setLineDash([4, 5]);
+    ctx.strokeStyle = "#aaa";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x(points.vertex.x), padding);
+    ctx.lineTo(x(points.vertex.x), height - padding);
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+function quadraticPoints() {
+  const { a, b, c } = params;
+
+  if (a === 0) {
+    const root = b !== 0 ? -c / b : null;
+    return {
+      roots: root === null ? [] : [root],
+      vertex: null,
+      yIntercept: { x: 0, y: c }
+    };
+  }
+
+  const vertexX = -b / (2 * a);
+  const vertexY = a * vertexX * vertexX + b * vertexX + c;
+  const discriminant = b * b - 4 * a * c;
+
+  let roots = [];
+  if (discriminant >= 0) {
+    const distance = Math.sqrt(discriminant) / (2 * Math.abs(a));
+    roots = discriminant === 0
+      ? [vertexX]
+      : [vertexX - distance, vertexX + distance];
+  }
+
+  return {
+    roots,
+    vertex: { x: vertexX, y: vertexY },
+    yIntercept: { x: 0, y: c }
+  };
+}
+
+function updateFacts() {
+  const points = quadraticPoints();
+  const rootText = points.roots.length
+    ? points.roots.map(root => format(root)).join(", ")
+    : "none";
+
+  const vertexText = points.vertex
+    ? `(${format(points.vertex.x)}, ${format(points.vertex.y)})`
+    : "none";
+
+  facts.innerHTML = [
+    `<span class="function-fact">roots: ${rootText}</span>`,
+    `<span class="function-fact">vertex: ${vertexText}</span>`,
+    `<span class="function-fact">y-intercept: ${format(params.c)}</span>`
+  ].join("");
 }
 
 function niceStep(value) {
@@ -160,6 +235,7 @@ function update() {
   }
 
   equation.textContent = equationText();
+  updateFacts();
   graph.redraw();
 }
 
