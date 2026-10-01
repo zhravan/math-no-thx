@@ -1,4 +1,4 @@
-import { canvas2d, slider, mapRange } from "../viz/viz.js";
+import { canvas2d, mapRange } from "../viz/viz.js";
 
 const canvas = document.querySelector("#graph");
 const cursor = document.querySelector("#cursor");
@@ -38,10 +38,19 @@ function draw(ctx, width, height) {
   graphSize = { width, height };
 
   const padding = 36;
-  const xMin = -10;
-  const xMax = 10;
-  const yMin = -10;
-  const yMax = 10;
+  const xRange = viewport();
+  const xMin = xRange.min;
+  const xMax = xRange.max;
+  const samples = 120;
+  const ys = Array.from({ length: samples + 1 }, (_, i) => {
+    const xv = mapRange(i, 0, samples, xMin, xMax);
+    return params.a * xv * xv + params.b * xv + params.c;
+  });
+  const rawMin = Math.min(...ys, 0);
+  const rawMax = Math.max(...ys, 0);
+  const span = Math.max(rawMax - rawMin, 1);
+  const yMin = rawMin - span * 0.12;
+  const yMax = rawMax + span * 0.12;
 
   const x = value => mapRange(value, xMin, xMax, padding, width - padding);
   const y = value => mapRange(value, yMin, yMax, height - padding, padding);
@@ -51,8 +60,12 @@ function draw(ctx, width, height) {
   ctx.strokeStyle = "#eee";
   ctx.lineWidth = 1;
 
-  for (let i = -10; i <= 10; i++) {
-    if (i !== 0) {
+  const step = niceStep((xMax - xMin) / 8);
+  const firstX = Math.ceil(xMin / step) * step;
+  const firstY = Math.ceil(yMin / step) * step;
+
+  for (let i = firstX; i <= xMax; i += step) {
+    if (Math.abs(i) > step / 10) {
       ctx.beginPath();
       ctx.moveTo(x(i), padding);
       ctx.lineTo(x(i), height - padding);
@@ -81,10 +94,9 @@ function draw(ctx, width, height) {
   ctx.fillStyle = "#777";
   ctx.font = "11px ui-monospace, SFMono-Regular, Menlo, monospace";
 
-  for (let i = -10; i <= 10; i += 2) {
-    if (i !== 0) {
-      ctx.fillText(String(i), x(i) - 4, y(0) + 18);
-      ctx.fillText(String(i), x(0) + 8, y(i) + 4);
+  for (let i = firstX; i <= xMax; i += step * 2) {
+    if (Math.abs(i) > step / 10) {
+      ctx.fillText(format(i), x(i) - 8, y(0) + 18);
     }
   }
 
@@ -115,6 +127,19 @@ function draw(ctx, width, height) {
   ctx.stroke();
 }
 
+function niceStep(value) {
+  const power = Math.pow(10, Math.floor(Math.log10(value)));
+  const normalized = value / power;
+  const factor = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10;
+  return factor * power;
+}
+
+function viewport() {
+  const scale = Math.max(1, Math.abs(params.a), Math.abs(params.b) / 5, Math.abs(params.c) / 5);
+  const half = Math.max(6, Math.min(20, 8 + Math.log10(scale + 1) * 4));
+  return { min: -half, max: half };
+}
+
 const graph = canvas2d(canvas, draw);
 
 canvas.addEventListener("pointermove", event => {
@@ -125,7 +150,8 @@ canvas.addEventListener("pointermove", event => {
   const py = event.clientY - rect.top;
 
   const padding = 36;
-  const x = mapRange(px, padding, graphSize.width - padding, -10, 10);
+  const range = viewport();
+  const x = mapRange(px, padding, graphSize.width - padding, range.min, range.max);
   const y = params.a * x * x + params.b * x + params.c;
 
   cursor.textContent = `x: ${format(x)}   y: ${format(y)}`;
@@ -135,7 +161,8 @@ canvas.addEventListener("pointermove", event => {
 
 function update() {
   for (const key of Object.keys(controls)) {
-    params[key] = Number(controls[key].value);
+    const value = Number(controls[key].value);
+    params[key] = Number.isFinite(value) ? value : 0;
     values[key].textContent = format(params[key]);
   }
 
@@ -144,7 +171,7 @@ function update() {
 }
 
 for (const key of Object.keys(controls)) {
-  slider(controls[key], update);
+  controls[key].addEventListener("input", update);
 }
 
 update();
