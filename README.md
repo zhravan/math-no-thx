@@ -76,7 +76,7 @@ Learn intermediate mathematics by **solving problems, writing minimal Python, an
 - [ ] Eigenvalues
 - [ ] Eigenvectors
 
-## Calculus — Limits
+## Calculus: Limits
 
 - [ ] Intuitive limits
 - [ ] Left and right limits
@@ -84,7 +84,7 @@ Learn intermediate mathematics by **solving problems, writing minimal Python, an
 - [ ] Infinite limits
 - [ ] Continuity
 
-## Calculus — Differentiation
+## Calculus: Differentiation
 
 - [ ] Derivative intuition
 - [ ] Secant → tangent
@@ -98,7 +98,7 @@ Learn intermediate mathematics by **solving problems, writing minimal Python, an
 - [ ] Optimization
 - [ ] Related rates
 
-## Calculus — Integration
+## Calculus: Integration
 
 - [ ] Area under a curve
 - [ ] Riemann sums
