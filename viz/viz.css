@@ -53,8 +53,21 @@
   font-size: 12px;
 }
 
-.viz-control input[type="range"] {
+.viz-control input[type="number"] {
   width: 100%;
+  min-height: 42px;
+  padding: 0 11px;
+  border: 1px solid var(--viz-line);
+  border-radius: 8px;
+  background: var(--viz-panel);
+  color: var(--viz-text);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+.viz-control input[type="number"]:focus {
+  outline: 2px solid var(--viz-text);
+  outline-offset: 2px;
 }
 
 .viz-value {
