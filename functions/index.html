@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Functions | math-no-thx</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../viz/viz.css">
+</head>
+<body>
+  <main class="page">
+    <header class="concept-header">
+      <a class="back" href="../">← math-no-thx</a>
+      <p class="eyebrow">Algebra / Functions</p>
+      <h1>Quadratic functions</h1>
+      <p class="lead">
+        Change the equation. Watch the graph move.
+      </p>
+    </header>
+
+    <section class="concept">
+      <div class="math-card">
+        <p class="label">The function</p>
+        <p class="equation" id="equation">f(x) = x²</p>
+        <p class="explanation">
+          A quadratic has the form <strong>f(x) = ax² + bx + c</strong>.
+          Change <strong>a</strong>, <strong>b</strong>, and <strong>c</strong>
+          and see what each one does.
+        </p>
+      </div>
+
+      <div class="viz">
+        <canvas id="graph" class="viz-canvas"></canvas>
+
+        <div class="viz-controls">
+          <div class="viz-control">
+            <label for="a">a <span class="viz-value" id="a-value">1</span></label>
+            <input id="a" type="range" min="-3" max="3" step="0.1" value="1">
+          </div>
+
+          <div class="viz-control">
+            <label for="b">b <span class="viz-value" id="b-value">0</span></label>
+            <input id="b" type="range" min="-5" max="5" step="0.1" value="0">
+          </div>
+
+          <div class="viz-control">
+            <label for="c">c <span class="viz-value" id="c-value">0</span></label>
+            <input id="c" type="range" min="-5" max="5" step="0.1" value="0">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="notes">
+      <div>
+        <p class="label">Try this</p>
+        <p>Set <strong>a = 0</strong>. What happens?</p>
+        <p>Make <strong>a</strong> negative. What changed?</p>
+        <p>Keep <strong>a</strong> fixed and move <strong>c</strong>. What stays the same?</p>
+      </div>
+
+      <div>
+        <p class="label">Next</p>
+        <p>Roots, vertex, axis of symmetry, and transformations.</p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
