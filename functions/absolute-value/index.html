@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Absolute value functions | math-no-thx</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../../viz/viz.css">
+</head>
+<body>
+  <main class="page">
+    <a class="back" href="../">← functions</a>
+    <header class="concept-header">
+      <p class="eyebrow">01 / Algebra / Functions</p>
+      <h1>Absolute value functions</h1>
+      <p class="lead">Move the V. Flip it. Stretch it.</p>
+    </header>
+    <section class="concept">
+      <div class="math-card">
+        <p class="label">The function</p>
+        <p class="equation" id="equation">f(x) = |x|</p>
+        <div class="function-facts" id="facts"></div>
+        <p class="explanation">
+          <strong>f(x) = a|x − h| + k</strong>. Change the three values
+          and see how they transform the basic absolute value graph.
+        </p>
+      </div>
+      <div class="viz">
+        <div class="graph-wrap">
+          <canvas id="graph" class="viz-canvas"></canvas>
+          <div id="cursor" class="graph-cursor" aria-hidden="true"></div>
+        </div>
+        <div class="viz-controls">
+          <div class="viz-control"><label for="a">a</label><input id="a" type="number" step="any" value="1"></div>
+          <div class="viz-control"><label for="h">h</label><input id="h" type="number" step="any" value="0"></div>
+          <div class="viz-control"><label for="k">k</label><input id="k" type="number" step="any" value="0"></div>
+        </div>
+      </div>
+    </section>
+    <section class="notes">
+      <div>
+        <p class="label">Try this</p>
+        <p>Make <strong>a</strong> negative. What changed?</p>
+        <p>Change <strong>h</strong>. Which direction does the vertex move?</p>
+        <p>Change <strong>k</strong>. What moves vertically?</p>
+      </div>
+      <div>
+        <p class="label">Next experiment</p>
+        <p><a href="../piecewise/">Piecewise functions →</a></p>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="./script.js"></script>
+</body>
+</html>
